@@ -29,6 +29,7 @@ sudo python3 dhcp_starvation.py
 sudo python3 dhcp_starvation.py -c 1000 -d 0
 sudo python3 dhcp_starvation.py -i eth1 -c 500 -d 0.02
 ```
+![Texto alternativo](https://github.com/DarkyGhost107/network-security-dhcp-starvation/blob/main/screenshots/ej%20dhcp%20starvation.png)
 
 ## 4. Requisitos
 
@@ -60,22 +61,7 @@ Para cada iteracion:
 
 ## 6. Topologia de Red (GNS3)
 
-```
- +------------------+
- | SERVIDOR DHCP    | 192.168.1.1 Pool:.100-.200
- | <- AGOTADO       |
- +--------+---------+
-          |
- +--------+---------+
- |    SWITCH L2     |
- +--+------------+--+
-    |            |
-+---+----+  +----+-------------------+
-|CLIENTE |  |  ATACANTE               |
-| Sin IP |  |  Kali 192.168.1.50      |
-| (DoS)  |  |  DHCP Starvation ON     |
-+--------+  +------------------------+
-```
+![Texto alternativo](https://github.com/DarkyGhost107/network-security-dhcp-starvation/blob/main/screenshots/topologia%20dhcp%20starvation.png)
 
 ### Direccionamiento
 
@@ -85,19 +71,18 @@ Para cada iteracion:
 | Atacante | 192.168.1.50/24 | IP estatica (no usa DHCP) |
 | Clientes legitimos | Sin IP (DoS) | Afectados |
 
-## 7. Capturas de Pantalla
+## 7. Captura
 
-Coloca tus capturas en `screenshots/`:
-- `screenshots/dhcp_pool_before.png` - Pool DHCP disponible
-- `screenshots/starvation_running.png` - Ataque en ejecucion
-- `screenshots/dhcp_pool_exhausted.png` - Pool DHCP agotado
-- `screenshots/client_no_ip.png` - Cliente sin IP (DoS)
-
-```cisco
+```
 show ip dhcp binding
-show ip dhcp server statistics
+```
+![Texto alternativo](https://github.com/DarkyGhost107/network-security-dhcp-starvation/blob/main/screenshots/dhcp%20binding.png)
+
+```
 show ip dhcp pool
 ```
+![Texto alternativo](https://github.com/DarkyGhost107/network-security-dhcp-starvation/blob/main/screenshots/dhcp%20pool.png)
+
 
 ## 8. Contramedidas
 
@@ -117,11 +102,15 @@ interface range GigabitEthernet0/2 - 24
  switchport port-security maximum 2
  switchport port-security violation restrict
 ```
+![Texto alternativo](https://github.com/DarkyGhost107/network-security-dhcp-starvation/blob/main/screenshots/contramedida%20dhcp%20starvation.png)
 
 ## 9. Referencias
 
 - [MITRE ATT&CK T1498 - Network DoS](https://attack.mitre.org/techniques/T1498/)
 - [RFC 2131 - DHCP Protocol](https://datatracker.ietf.org/doc/html/rfc2131)
+
+## 10.Enlaces
+Video: https://youtu.be/azOq5a9P29c
 
 ---
 *Laboratorio de Seguridad de Redes | GNS3 | Uso educativo exclusivo*
